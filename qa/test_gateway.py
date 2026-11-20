@@ -24,7 +24,7 @@ def get_json(app, path):
 
 @pytest.mark.parametrize(
     ("path", "status", "body"),
-    [("/health", 200, {"status": "available"}), ("/version", 200, {"commit": "practice.6"})],
+    [("/health", 200, {"status": "available"}), ("/version", 200, {"commit": "incorrect.6"})],
 )
 def test_get_endpoints(service, path, status, body):
     assert get_json(service(), path) == (status, body)
