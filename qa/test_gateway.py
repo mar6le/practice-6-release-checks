@@ -50,3 +50,11 @@ def test_invalid_configuration(service, monkeypatch, key, value):
     monkeypatch.setenv(key, value)
     with pytest.raises(ValueError, match=key):
         service()
+
+
+def test_version_sends_json_content_type(service):
+    request = {"PATH_INFO": "/version", "REQUEST_METHOD": "GET"}
+    setup_testing_defaults(request)
+    headers = {}
+    list(service()(request, lambda status, items, exc_info=None: headers.update(items)))
+    assert headers["Content-Type"].startswith("application/json")
