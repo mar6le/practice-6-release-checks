@@ -1,0 +1,150 @@
+name: Prepare source tree
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v6
+      - name: Import repository files and create training branches
+        shell: bash
+        run: |
+          test ! -f gateway.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          base64 --decode <<'SOURCE_FILES' | tar -xz
+          H4sIAAAAAAAAA+08a3PbRpL+jF8xQbwR6SMhPiWbOWajSLStO9vyyXKyKVsLQcSQQkQCNADK0ipK
+          OfbmsVWupGor51Rt1b3q/oAs27HjZ9X+AvIv3C+57p7Bi6Qk752lbBLOZi1gMNPd0+9pDNgxNvVm
+          y1k1WvoaN0zunnjzLQdtamqK/kIb/AsPSyfy5SJcFHPl6Wnoz5fK+cKJ5hHQMtS6nm+4gNJ1HP+g
+          cYc9H1zcz6SVC6zutNvc9qtmMZ8rGPmcWSyePm1wM98omYVyaZobeZNP1/OreTO/Wlw1lZ+a5nF7
+          c00znfo6d62m7bj8iHAI+y/tb//lIfsvlov5E8diRL9y+z+lvDVHGtCwWlx5q2n4/KaxpXW2lLdc
+          fqNruRx9g6f5m/7Y7n+BTeP2hsY3jXandVTmf6j95/O5IfsvTI/t/zjauZml2kczH+vzF2fO1aod
+          16j7Vp1PZaUjyLanKi2nbrSU80tLl/XLC4tL1dO50znlwsLszAV5nz8zNfYNP9OmNS3/SIP/ideI
+          /1OFIfvPlUpj+z+Ghv5f0Tbg30lF1ztbdaO+xnV9UoEUwOeer1PHpMI3LJPbdbj6qSketzfZouTv
+          6HAcZv9TxfKw/ZfH9n8c7eziwkUGpr7m2JWili9kjVbHsvn73ppRKE9V6uVVo2hy3sjl6tPT5dPl
+          qbyRa+SK9cJUo1Rq5HPl02cKU0WzlOPTxcLq6enSaZ4z843i6caUaZ4+o3y0sPjPc/OLbNJzNyZl
+          UqHULn3ILn+8dH7h0tzCpaWPFueXah98vFSbXZirVfPyydVLH1w9e7a2WJur5pWZxXPsg6vzF+b0
+          xdrZqsk3CETUc3I7vN5hyUyFXaktfjg/W9OvLEGqUzU2DKtlrMJeZ3bh8sdscI/DtEll8eolyRGW
+          bbOO1WGWDUrSarFs1nay5BCzpuWyrDs0X0CNdlEI7ypQwPKFcilXoX+V2u8uL1ypMcqjZi/OsWuq
+          QKdmmBpNVZePw9Uu1mbmLta0tnmEOA62/3wuVxqy/0IRfMLY/o++vc3OCY1jf33Mek97L3sv+rf7
+          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
+          27j9vbT/BcMcessAeAAA
+          SOURCE_FILES
+          sed -i 's/gh workflow run release.yml/gh workflow run main.yml/g' README.md
+          git add -- . ':!.github'
+          git commit -m 'Add gateway, container tests and rollout scripts'
+          git switch -c scenario/unit-fail
+          sed -i 's/{"commit": "practice.6"}/{"commit": "incorrect.6"}/' qa/test_gateway.py
+          git add qa/test_gateway.py
+          git commit -m 'Expect an incorrect commit in the API test'
+          git switch -c scenario/unavailable main
+          sed -i 's/SERVICE_STATE=available/SERVICE_STATE=maintenance/' Dockerfile
+          git add Dockerfile
+          git commit -m 'Start gateway with maintenance status'
+          git switch -c codex/version-content-type main
+          cat >> qa/test_gateway.py <<'PYTEST'
+          
+          
+          def test_version_sends_json_content_type(service):
+              request = {"PATH_INFO": "/version", "REQUEST_METHOD": "GET"}
+              setup_testing_defaults(request)
+              headers = {}
+              list(service()(request, lambda status, items, exc_info=None: headers.update(items)))
+              assert headers["Content-Type"].startswith("application/json")
+          PYTEST
+          git add qa/test_gateway.py
+          git commit -m 'Check JSON content type of the version endpoint'
+          git push --atomic origin main scenario/unit-fail scenario/unavailable codex/version-content-type
